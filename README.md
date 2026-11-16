@@ -1,248 +1,113 @@
-# arduino-control
 
-Moderní webové ovládací centrum pro Arduino a kompatibilní mikrokontroléry.
+# arduino-control V2.0
 
-arduino-control nabízí přehledný dashboard, správu hardwaru, sériovou komunikaci, automatizace, profily a speciální heslem chráněné BOSS MENU.
+České webové ovládací centrum pro Arduino.
 
----
+arduino-control kombinuje čistý technický vzhled, útulnou barevnou paletu a přehledné ovládání hardwaru.
 
-## ✨ Funkce
+## Obsah projektu
 
-### 📊 Dashboard
-- Přehled připojeného zařízení
-- Stav digitálních výstupů
-- Informace o sériovém připojení
-- Doba běhu aplikace
-- Rychlé ovládání LED, relé, RGB a PWM
+- `index.html` – webové rozhraní
+- `nebula_control.ino` – firmware pro Arduino
+- `README.md` – dokumentace
 
-### 🔌 Hardware Control
-- LED ON / OFF
-- Relay control
-- RGB LED controller
-- Nastavení jasu
-- Servo motor (0–180°)
-- PWM výstup (0–255)
-- Režimy osvětlení
+## Funkce
 
-### 🎛️ Pin Manager
-- Přehled digitálních pinů
-- Ruční nastavení HIGH / LOW
-- Omezení na povolené piny
-- Ovládání přes sériový protokol
+- Přehledový dashboard
+- Ovládání digitálních pinů
+- LED a relé
+- RGB světlo
+- Servo motor
+- PWM výstup
+- Analogové vstupy A0, A1 a A2
+- Historie měření
+- Export dat do CSV
+- Automatizace IF / THEN
+- Modelovaný PWM osciloskop
+- Ukládání profilů
+- Import a export konfigurace
+- Sériový terminál
+- Protokol událostí
+- Světlý a tmavý režim
+- Servisní BOSS režim
 
-### ⚙️ Automation
-- Startup sequence
-- Shutdown sequence
-- Status check
-- RGB test
-- Vlastní příkazové sekvence
-- Nastavitelná prodleva mezi příkazy
+## Spuštění
 
-### 💾 Profiles
-- Ukládání konfigurací
-- Načítání profilů
-- Mazání profilů
-- Lokální ukládání v prohlížeči
+1. Ulož `index.html` do složky projektu.
+2. Otevři Arduino IDE.
+3. Otevři soubor `nebula_control.ino`.
+4. Vyber správnou desku a port.
+5. Nahraj firmware do Arduina.
+6. Otevři `index.html` v Chrome nebo Edge.
+7. Klikni na Připojit Arduino.
+8. Vyber sériový port desky.
 
-### 📈 Sensors
-- Analog input A0
-- Analog input A1
-- Analog input A2
-- Zobrazení hodnot ADC (0–1023)
-- Historie naměřených hodnot
+Web Serial vyžaduje podporovaný prohlížeč a bezpečný kontext HTTPS nebo localhost.
 
-### 🖥️ Serial Terminal
-- Odesílání vlastních příkazů
-- Zobrazení odpovědí Arduina
-- Časové značky
-- Mazání terminálu
-- Automatické posouvání na nové zprávy
+## Výchozí zapojení
 
-### ♛ BOSS MENU
-- Heslem chráněné administrátorské menu
-- Device Ping
-- LED Override
-- RGB efekty
-- Command Center
-- Pin Override
-- System Diagnostics
-- Emergency Stop
+| Funkce | Pin |
+|---|---|
+| LED | D13 |
+| Reléový modul | D7 |
+| PWM výstup | D5 |
+| Servo | D9 |
+| RGB červená | D3 |
+| RGB zelená | D6 |
+| RGB modrá | D10 |
+| Analogový senzor 1 | A0 |
+| Analogový senzor 2 | A1 |
+| Analogový senzor 3 | A2 |
 
-**Doporučení:** Změň si ho přímo v souboru `index.html`.
+## Sériová komunikace
 
-Pozor: BOSS MENU je pouze klientská ochrana rozhraní. Heslo je součástí veřejného JavaScriptu, takže nejde o skutečné zabezpečení zařízení.
-
----
-
-## 🎨 Design
-
-- Forest Green
-- Graphite Grey
-- Sage Grey
-- Warm Sand
-- Font Inter
-- JetBrains Mono pro terminál
-- Responzivní rozložení
-- Desktop i mobilní zařízení
-
----
-
-## 🚀 Instalace a spuštění
-
-### 1. GitHub repository
-
-Vytvoř nový GitHub repository nebo otevři existující.
-
-### 2. Nahraj soubory
-
-V repozitáři by měla být tato struktura:
-
-```text
-NEBULA-CONTROL/
-│
-├── index.html
-├── README.md
-└── LICENSE
-```
-
-`LICENSE` je volitelný soubor.
-
-### 3. Zapni GitHub Pages
-
-1. Otevři repository.
-2. Přejdi do Settings.
-3. Otevři Pages.
-4. V části Build and deployment vyber Deploy from a branch.
-5. Vyber branch `main`.
-6. Vyber složku `/ (root)`.
-7. Klikni na Save.
-
-Po dokončení bude aplikace dostupná na adrese:
-
-`https://TVUJ-USERNAME.github.io/NAZEV-REPOSITORY/`
-
----
-
-## 🔗 Připojení Arduina
-
-Aplikace využívá Web Serial API.
-
-Podporované prostředí:
-- Google Chrome
-- Microsoft Edge
-- Další kompatibilní Chromium prohlížeče
-
-Je potřeba:
-- HTTPS nebo localhost
-- USB kabel s datovým přenosem
-- Arduino nebo kompatibilní zařízení
-- Nahraný kompatibilní firmware
-
-### Postup
-
-1. Připoj Arduino přes USB.
-2. Otevři arduino-control.
-3. Klikni na Connect.
-4. Vyber správný sériový port.
-5. Nastav baud rate.
-6. Potvrď připojení.
-
-Výchozí baud rate je `9600`.
-
----
-
-## 📡 Sériový protokol
-
-Aplikace používá jednoduché textové příkazy zakončené novým řádkem.
+Rychlost komunikace je 115200 baud.
 
 | Příkaz | Funkce |
 |---|---|
-| `PING` | Test komunikace |
+| `PING` | Test spojení |
+| `STATUS` | Stav Arduina |
 | `LED:1` | Zapnutí LED |
 | `LED:0` | Vypnutí LED |
 | `RELAY1:1` | Zapnutí relé |
 | `RELAY1:0` | Vypnutí relé |
-| `RGB:255,0,0` | Nastavení RGB |
+| `PWM:120` | Nastavení PWM |
 | `SERVO:90` | Nastavení serva |
-| `PWM:128` | Nastavení PWM |
-| `MODE:BREATHING` | Efekt dýchání |
-| `MODE:PARTY` | Party efekt |
-| `MODE:OFF` | Vypnutí efektů |
-| `PIN:5:1` | Nastavení pinu HIGH |
-| `PIN:5:0` | Nastavení pinu LOW |
+| `RGB:30,120,60` | Nastavení RGB |
+| `STOP` | Vypnutí výstupů |
 
-Arduino může posílat analogové hodnoty například:
+Arduino odesílá analogové hodnoty ve formátu:
 
-```text
-A0:428
-A1:612
-A2:205
-```
+- `A0:512`
+- `A1:438`
+- `A2:225`
 
-Odpověď na `PING`:
+## BOSS režim
 
-```text
-PONG
-```
+Výchozí lokální heslo:
 
----
+`nebula-root`
 
-## 🧪 Demo Mode
+Po prvním spuštění ho změň.
 
-Pokud nemáš Arduino připojené, můžeš používat Demo Mode.
+**Upozornění:** Heslo je uloženo v prohlížeči a chrání pouze uživatelské rozhraní. Není to skutečná bezpečnostní autentizace. Pro reálné zabezpečení použij serverovou autentizaci nebo ověřování přímo ve firmwaru.
 
-Demo Mode umožňuje:
-- Prohlížet dashboard
-- Vyzkoušet ovládací prvky
-- Testovat automatizace
-- Ukládat profily
-- Používat terminálovou simulaci
-- Zobrazovat simulované analogové hodnoty
+## Bezpečnost
 
-**Důležité:** Simulovaná data nejsou skutečné hodnoty ze senzorů.
+- Nepřipojuj výkonné motory přímo k pinům Arduina.
+- Pro relé, motory a další zátěže používej vhodné budiče.
+- Dodržuj napěťové a proudové limity desky.
+- Před zapojením zkontroluj společnou zem a polaritu.
+- Nouzové vypnutí ve webu je pouze příkaz do zařízení; nezaručuje bezpečné odpojení napájení.
 
----
+## Omezení
 
-## ⚠️ Bezpečnost
+- Demo režim používá simulovaná data.
+- PWM osciloskop je vizualizace, nikoliv fyzické měření.
+- Automatizace v prohlížeči běží jen při otevřené stránce.
+- Pro dlouhodobé automatizace je vhodné přesunout pravidla do Arduina.
+- Firmware je výchozí příklad pro Arduino Uno/Nano. Pro jiné desky je nutné upravit piny a případně knihovny.
 
-- Před připojením relé zkontroluj jeho napájení a zapojení.
-- Nepřipojuj zařízení s vyšším napětím přímo na Arduino piny.
-- Servo může potřebovat samostatné napájení.
-- Před použitím Pin Manageru zkontroluj konflikty pinů.
-- Emergency Stop je softwarová sekvence příkazů, nikoliv hardwarové nouzové odpojení.
-- BOSS MENU není bezpečnostní autentizace.
-- Nikdy nevystavuj citlivá zařízení veřejnému přístupu bez dalšího zabezpečení.
+## Verze
 
----
-
-## 🛠️ Technologie
-
-- HTML5
-- CSS3
-- Vanilla JavaScript
-- Web Serial API
-- Arduino C++
-- Local Storage
-- GitHub Pages
-
-Žádný framework ani instalace balíčků nejsou potřeba.
-
----
-
-## 📌 Verze
-
-**arduino-control**
-
-Version: `1.0.0`
-
-Status: Development
-
----
-
-## 💚 Autor
-
-Created for Arduino hardware control and experimentation.
-
-**arduino-control**
-
-*Simple interface. Full control.*
+arduino-control V2.0 – česká edice
