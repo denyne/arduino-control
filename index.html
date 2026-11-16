@@ -3,967 +3,553 @@
 <html lang="cs">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#202923">
-<title>NEBULA CONTROL — Green Edition</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#202d27">
+<title>NEBULA CONTROL 2.0</title>
 <style>
-:root {
-  --bg:#171d19;--sidebar:#202923;--panel:#252f28;--panel2:#2b362e;
-  --line:#3a473d;--text:#e5ebe3;--muted:#9ba99b;
-  --green:#7e9e7c;--green2:#a4c39b;--green-dark:#425b46;
-  --sand:#d4ad78;--red:#cf7777;--blue:#8da9a0;
-  --radius:13px;--shadow:0 12px 35px #0003;
+:root{
+  --bg:#eef0e9;--panel:#fffefa;--panel2:#e5eae2;
+  --text:#26342d;--muted:#78857c;--line:#dce2d8;
+  --green:#5c8065;--green-dark:#294c38;--green-soft:#e0ebe0;
+  --amber:#b98c55;--red:#b85c52;--shadow:0 8px 25px #24372b0b;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;font-size:14px}
-button,input,select,textarea{font:inherit}
+body{margin:0;background:var(--bg);color:var(--text);
+font:14px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input,select{font:inherit}
 button{cursor:pointer}
-.app{min-height:100vh;display:grid;grid-template-columns:245px 1fr}
-.sidebar{background:var(--sidebar);border-right:1px solid var(--line);padding:22px 15px;display:flex;flex-direction:column;gap:22px}
+.app{display:grid;grid-template-columns:245px 1fr;min-height:100vh}
+.sidebar{background:#202d27;color:#e8eee8;padding:23px 15px;
+display:flex;flex-direction:column;gap:24px}
 .brand{display:flex;align-items:center;gap:11px;padding:0 8px}
-.brand-icon{width:39px;height:39px;border-radius:11px;background:var(--green-dark);display:grid;place-items:center;color:#d8e8d2;font-size:19px;font-weight:800}
-.brand-name{font-size:14px;font-weight:800;letter-spacing:.7px}
-.brand-sub{font-size:10px;color:var(--muted);margin-top:4px;letter-spacing:1.4px}
-.nav-label{padding:0 10px;color:#78867a;font-size:10px;font-weight:800;letter-spacing:1.5px;margin-bottom:6px}
+.logo{width:38px;height:38px;border-radius:12px;background:#a9c6aa;
+color:#20372a;display:grid;place-items:center;font-weight:900;font-size:19px}
+.brand b{font-size:13px;letter-spacing:.13em}
+.brand small{display:block;color:#a8b8ac;font-size:10px;letter-spacing:.12em}
+.navlabel{color:#82948a;font-size:10px;letter-spacing:.16em;
+text-transform:uppercase;padding:0 12px;margin-bottom:8px}
 .nav{display:grid;gap:4px}
-.nav button{display:flex;align-items:center;gap:12px;border:0;background:transparent;color:#aab6aa;padding:11px 12px;border-radius:9px;text-align:left;font-size:13px}
-.nav button:hover,.nav button.active{background:#354339;color:#e8f1e5}
-.nav button.active{box-shadow:inset 3px 0 var(--green2)}
-.nav-icon{width:19px;text-align:center;font-size:16px}
-.sidebar-bottom{margin-top:auto;display:grid;gap:10px}
-.device-mini{background:#29342c;border:1px solid var(--line);padding:13px;border-radius:11px}
-.device-mini strong{font-size:12px}
-.device-mini p{font-size:11px;color:var(--muted);margin:7px 0}
-.status-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#8cb78b;margin-right:6px}
-.main{min-width:0}
-.topbar{height:68px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px;background:#1b231e}
-.breadcrumb{color:var(--muted);font-size:12px}
-.top-actions{display:flex;align-items:center;gap:9px}
-.page{padding:27px 30px 50px;max-width:1500px;margin:auto}
-.page-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:23px}
-.page-head h1{font-size:25px;letter-spacing:-.8px;margin:0 0 7px}
-.page-head p{margin:0;color:var(--muted);font-size:12px}
-.eyebrow{font-size:10px;color:var(--green2);font-weight:800;letter-spacing:1.7px;margin-bottom:8px}
+.nav button{background:none;color:#bac8be;border:0;text-align:left;
+padding:10px 12px;border-radius:9px}
+.nav button:hover,.nav button.active{background:#34483b;color:white}
+.nav button span{display:inline-block;width:24px;color:#a8c9aa}
+.sidebottom{margin-top:auto;border-top:1px solid #3b4b40;padding:15px 8px;
+color:#a8b8ac;font-size:11px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;
+background:#c09256;margin-right:7px}
+.dot.online{background:#82bd8b}
+main{padding:28px clamp(16px,3vw,42px);max-width:1600px;width:100%;margin:auto}
+header{display:flex;justify-content:space-between;align-items:center;
+gap:15px;margin-bottom:25px;flex-wrap:wrap}
+.eyebrow{font-size:10px;letter-spacing:.16em;color:var(--green);
+font-weight:800;text-transform:uppercase}
+h1{font-size:27px;letter-spacing:-.04em;margin:4px 0 0}
+h3{font-size:14px;margin:0}
+.sub,.muted{font-size:11px;color:var(--muted)}
+.topright{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pill{border:1px solid var(--line);background:var(--panel);
+border-radius:30px;padding:8px 12px;color:var(--muted);font-size:11px}
+.btn{border:0;border-radius:9px;padding:9px 13px;background:var(--green);
+color:white;font-weight:650}
+.btn:hover{filter:brightness(.95)}
+.btn.secondary{background:var(--panel);color:var(--text);border:1px solid var(--line)}
+.btn.danger{background:var(--red)}
+.btn.small{font-size:11px;padding:6px 9px}
+.page{display:none}.page.active{display:block}
 .grid{display:grid;gap:14px}
 .stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:15px}
-.two{grid-template-columns:1.35fr 1fr}
-.three{grid-template-columns:repeat(3,minmax(0,1fr))}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:17px;min-width:0}
-.card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}
-.card-title{font-size:13px;font-weight:700}
-.card-sub{font-size:11px;color:var(--muted);margin-top:4px}
-.stat-label{font-size:10px;color:var(--muted);letter-spacing:1px;font-weight:700}
-.stat-value{font-size:25px;font-weight:700;margin:10px 0 4px;letter-spacing:-1px}
-.stat-foot{font-size:10px;color:var(--green2)}
-.stat-icon{float:right;font-size:18px;color:var(--green2)}
-.badge{display:inline-flex;align-items:center;gap:5px;padding:5px 8px;border-radius:6px;font-size:10px;font-weight:700;background:#39443b;color:#c3d5bd}
-.badge.warn{background:#4a4030;color:#e4c18e}
-.badge.red{background:#4c3435;color:#e5a4a4}
-.badge.gray{background:#343c36;color:#b4beb4}
-.btn{border:1px solid var(--line);background:#344137;color:var(--text);padding:9px 13px;border-radius:8px;font-size:11px;font-weight:700}
-.btn:hover{filter:brightness(1.15)}
-.btn.primary{background:var(--green-dark);border-color:#617b62;color:#e6f0e1}
-.btn.danger{background:#593638;border-color:#805052;color:#ffe1e1}
-.btn.ghost{background:transparent}
-.btn.small{padding:6px 9px;font-size:10px}
-.btn.full{width:100%}
-.control-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line);gap:12px}
-.control-row:last-child{border-bottom:0}
-.control-name{font-size:12px;font-weight:600}
-.control-desc{font-size:10px;color:var(--muted);margin-top:4px}
-.switch{position:relative;width:39px;height:22px;flex:none}
-.switch input{opacity:0;width:0;height:0}
-.switch span{position:absolute;inset:0;border-radius:20px;background:#515b53;transition:.2s}
-.switch span:before{content:"";position:absolute;width:16px;height:16px;left:3px;top:3px;background:#d8ded7;border-radius:50%;transition:.2s}
-.switch input:checked+span{background:#668769}
-.switch input:checked+span:before{transform:translateX(17px);background:white}
-.field{display:grid;gap:6px;margin:10px 0}
-.field label{font-size:10px;color:var(--muted);font-weight:700;letter-spacing:.5px}
-.field input,.field select,.field textarea,.input{width:100%;padding:10px 11px;background:#1c241e;color:var(--text);border:1px solid var(--line);border-radius:8px;outline:none}
-.field input:focus,.field select:focus,.field textarea:focus,.input:focus{border-color:var(--green)}
-input[type=range]{accent-color:var(--green2);width:100%}
-.range-line{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:6px}
-.mono{font-family:"JetBrains Mono",monospace}
-.terminal{height:270px;overflow:auto;background:#151c17;border:1px solid #344137;border-radius:9px;padding:12px;font:11px/1.8 "JetBrains Mono",monospace;color:#c3d4c0}
-.terminal-line{white-space:pre-wrap;overflow-wrap:anywhere}
-.terminal-line .time{color:#788b78}
-.terminal-line .out{color:#a8c99c}
-.terminal-line .in{color:#b8c6bd}
-.terminal-line .err{color:#e49a9a}
-.terminal-input{display:flex;gap:8px;margin-top:10px}
-.terminal-input input{flex:1;min-width:0}
-.progress{height:7px;border-radius:8px;background:#3b463d;overflow:hidden}
-.progress span{display:block;height:100%;background:var(--green);border-radius:8px}
-.pin-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
-.pin{padding:10px 5px;background:#1e2821;border:1px solid var(--line);border-radius:8px;text-align:center}
-.pin b{display:block;font-size:12px}
-.pin small{font-size:9px;color:var(--muted)}
-.pin.active{border-color:var(--green);background:#334337}
-.color-input{height:40px;width:100%;padding:3px;background:#1c241e;border:1px solid var(--line);border-radius:8px}
-.empty{padding:25px;text-align:center;color:var(--muted);font-size:12px}
+.cols{grid-template-columns:minmax(0,1.5fr) minmax(260px,1fr)}
+.cols3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);
+border-radius:15px;padding:17px;box-shadow:var(--shadow);min-width:0}
+.cardhead{display:flex;justify-content:space-between;align-items:center;
+gap:10px;margin-bottom:14px}
+.statlabel{font-size:12px;color:var(--muted)}
+.statvalue{font-size:26px;font-weight:750;letter-spacing:-.04em;margin:7px 0 1px}
+.statfoot{font-size:11px;color:var(--muted)}
+.badge{display:inline-block;border-radius:30px;padding:4px 8px;
+font-size:10px;font-weight:750;background:var(--green-soft);color:var(--green-dark)}
+.badge.warn{background:#f4eadb;color:#89632f}
+.badge.off{background:#edf0eb;color:#758078}
+.list{display:grid;gap:0}
+.listrow{display:flex;justify-content:space-between;align-items:center;
+gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.listrow:last-child{border:0}
+.metric{display:flex;align-items:center;gap:12px}
+.metricicon{width:38px;height:38px;border-radius:12px;background:var(--green-soft);
+display:grid;place-items:center;font-size:18px}
+.metric strong{font-size:19px}.metric small{display:block;color:var(--muted);font-size:11px}
+.pin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:10px}
+.pin{border:1px solid var(--line);border-radius:12px;padding:12px;background:white}
+.pin-top{display:flex;justify-content:space-between;align-items:center}
+.pin strong{font-size:16px}.pin small{display:block;color:var(--muted);margin-top:4px}
+.switch{width:38px;height:22px;border:0;border-radius:30px;background:#cbd3cb;padding:3px}
+.switch:after{content:"";display:block;width:16px;height:16px;background:white;
+border-radius:50%;transition:.15s}
+.switch.on{background:var(--green)}
+.switch.on:after{transform:translateX(16px)}
+.field{display:grid;gap:5px;margin:10px 0}
+.field label{font-size:11px;color:var(--muted);font-weight:700}
+.field input,.field select,.terminalform input{
+width:100%;padding:9px 10px;border:1px solid var(--line);
+border-radius:8px;background:white;color:var(--text)}
+input[type=range]{width:100%;accent-color:var(--green)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+canvas{width:100%;height:190px;display:block;background:#fbfcf8;
+border:1px solid var(--line);border-radius:10px}
+.table{width:100%;border-collapse:collapse;font-size:12px}
+.table th,.table td{text-align:left;padding:10px 7px;border-bottom:1px solid var(--line)}
+.table th{color:var(--muted)}
+.terminal{background:#19251f;color:#d9e6da;border-radius:11px;padding:13px;
+height:220px;overflow:auto;font:12px/1.7 ui-monospace,monospace}
+.terminal .muted{color:#91a394}
+.terminalform{display:flex;gap:8px;margin-top:9px}
+.terminalform input{flex:1;min-width:0}
+.notice{padding:11px 13px;border-radius:10px;background:#f5eddf;
+color:#795a32;font-size:12px;margin-bottom:14px}
+.rule{border:1px solid var(--line);padding:12px;border-radius:10px;margin:8px 0}
+.rule p{margin:4px 0;color:var(--muted);font-size:11px}
+.empty{padding:17px;text-align:center;color:var(--muted)}
+.footerhint{font-size:11px;color:var(--muted);margin-top:12px}
+.toast{position:fixed;right:20px;bottom:20px;background:#263a2e;color:white;
+padding:12px 16px;border-radius:10px;z-index:10;box-shadow:var(--shadow)}
 .hidden{display:none!important}
-.toast{position:fixed;bottom:20px;right:20px;z-index:9999;background:#344638;border:1px solid #617c63;color:#eff7eb;padding:12px 16px;border-radius:10px;box-shadow:var(--shadow);opacity:0;transform:translateY(10px);transition:.2s;pointer-events:none;font-size:12px}
-.toast.show{opacity:1;transform:translateY(0)}
-.modal-backdrop{position:fixed;inset:0;background:#0009;z-index:1000;display:none;align-items:center;justify-content:center;padding:15px}
-.modal-backdrop.open{display:flex}
-.modal{width:min(600px,100%);max-height:90vh;overflow:auto;background:var(--sidebar);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:var(--shadow)}
-.modal h2{font-size:20px;margin:0 0 5px}
-.modal p{font-size:12px;color:var(--muted)}
-.boss-top{display:flex;justify-content:space-between;align-items:flex-start}
-.boss-tag{font-size:10px;letter-spacing:1.5px;color:var(--green2);font-weight:800}
-.boss-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:15px 0}
-.boss-tile{background:#2d3930;border:1px solid #465748;color:var(--text);padding:15px 9px;border-radius:10px;text-align:left}
-.boss-tile b{display:block;font-size:19px;margin-bottom:7px}
-.boss-tile span{font-size:10px}
-.boss-section{border:1px solid var(--line);border-radius:10px;padding:13px;margin-top:12px}
-.boss-section h3{font-size:12px;margin:0 0 10px}
-.boss-login{max-width:360px;margin:20px auto}
-.boss-login input{width:100%;padding:12px;background:#1b241d;border:1px solid var(--line);border-radius:8px;color:white;margin:8px 0}
-.boss-error{color:#e49a9a;font-size:11px;min-height:16px}
-.table{width:100%;border-collapse:collapse;font-size:11px}
-.table th,.table td{text-align:left;padding:11px 8px;border-bottom:1px solid var(--line)}
-.table th{color:var(--muted);font-size:10px}
-.footer-note{font-size:10px;color:var(--muted);line-height:1.6;margin-top:12px}
-.mobile-menu{display:none}
-@media(max-width:1000px){
- .app{grid-template-columns:205px 1fr}.stats{grid-template-columns:repeat(2,1fr)}
- .two{grid-template-columns:1fr}.pin-grid{grid-template-columns:repeat(5,1fr)}
-}
+.modalback{position:fixed;inset:0;background:#101b16aa;display:grid;
+place-items:center;padding:18px;z-index:8}
+.modal{width:min(420px,100%);background:var(--panel);border-radius:16px;padding:22px}
+@media(max-width:1000px){.app{grid-template-columns:205px 1fr}.stats{grid-template-columns:repeat(2,1fr)}.cols{grid-template-columns:1fr}}
 @media(max-width:700px){
- .app{display:block}.sidebar{display:none;position:fixed;z-index:50;inset:0 auto 0 0;width:260px;box-shadow:var(--shadow)}
- .sidebar.mobile-open{display:flex}.mobile-menu{display:inline-flex}
- .topbar{padding:0 15px;height:58px}.page{padding:20px 14px 40px}
- .page-head{flex-direction:column}.three{grid-template-columns:1fr}
- .stats{gap:9px}.stat-value{font-size:21px}.pin-grid{grid-template-columns:repeat(4,1fr)}
- .boss-grid{grid-template-columns:repeat(2,1fr)}
+.app{display:block}.sidebar{padding:12px;position:sticky;top:0;z-index:4;gap:10px}
+.navlabel,.sidebottom{display:none}.nav{display:flex;overflow:auto;gap:4px}
+.nav button{white-space:nowrap;padding:8px 10px;font-size:12px}
+.nav button span{display:none}main{padding:18px 12px 35px}
+header{align-items:flex-start;flex-direction:column}h1{font-size:23px}
+.cols3{grid-template-columns:1fr 1fr}.card{padding:13px}
 }
 </style>
 </head>
 <body>
 <div class="app">
-  <aside class="sidebar" id="sidebar">
-    <div class="brand">
-      <div class="brand-icon">N</div>
-      <div><div class="brand-name">NEBULA CONTROL</div><div class="brand-sub">GREEN EDITION</div></div>
-    </div>
-
-    <div>
-      <div class="nav-label">WORKSPACE</div>
-      <nav class="nav">
-        <button class="active" data-page="dashboard"><span class="nav-icon">▦</span>Dashboard</button>
-        <button data-page="hardware"><span class="nav-icon">⌘</span>Hardware</button>
-        <button data-page="pins"><span class="nav-icon">▤</span>Pin Manager</button>
-        <button data-page="automation"><span class="nav-icon">↗</span>Automation</button>
-        <button data-page="profiles"><span class="nav-icon">▣</span>Profiles</button>
-      </nav>
-    </div>
-
-    <div>
-      <div class="nav-label">MONITORING</div>
-      <nav class="nav">
-        <button data-page="sensors"><span class="nav-icon">⌁</span>Sensors</button>
-        <button data-page="terminal"><span class="nav-icon">›_</span>Terminal</button>
-        <button data-page="logs"><span class="nav-icon">☷</span>Activity logs</button>
-      </nav>
-    </div>
-
-    <div>
-      <div class="nav-label">SYSTEM</div>
-      <nav class="nav">
-        <button data-page="settings"><span class="nav-icon">⚙</span>Settings</button>
-      </nav>
-    </div>
-
-    <div class="sidebar-bottom">
-      <div class="device-mini">
-        <strong><span class="status-dot" id="side-dot"></span><span id="side-device">Demo device</span></strong>
-        <p id="side-status">Simulation active</p>
-        <button class="btn small full" onclick="connectDevice()">Connect device</button>
-      </div>
-      <button class="btn ghost full" onclick="openBoss()">♛ &nbsp; BOSS MENU</button>
-    </div>
-  </aside>
-
-  <main class="main">
-    <header class="topbar">
-      <div class="top-actions">
-        <button class="btn mobile-menu" onclick="toggleSidebar()">☰</button>
-        <span class="breadcrumb">Workspace / <b id="crumb">Dashboard</b></span>
-      </div>
-      <div class="top-actions">
-        <span class="badge" id="mode-badge">DEMO MODE</span>
-        <button class="btn primary" onclick="connectDevice()" id="connect-btn">Connect</button>
-      </div>
-    </header>
-
-    <section class="page" id="page-dashboard">
-      <div class="page-head">
-        <div><div class="eyebrow">SYSTEM OVERVIEW</div><h1>Dashboard</h1><p>Welcome back. Here is your hardware status.</p></div>
-        <button class="btn" onclick="refreshDashboard()">↻ Refresh data</button>
-      </div>
-      <div class="grid stats">
-        <div class="card"><span class="stat-icon">▣</span><div class="stat-label">ACTIVE OUTPUTS</div><div class="stat-value" id="stat-outputs">2 / 4</div><div class="stat-foot">Output channels</div></div>
-        <div class="card"><span class="stat-icon">⌁</span><div class="stat-label">ANALOG INPUT A0</div><div class="stat-value" id="stat-a0">428</div><div class="stat-foot">Raw ADC value</div></div>
-        <div class="card"><span class="stat-icon">◷</span><div class="stat-label">SESSION TIME</div><div class="stat-value" id="stat-uptime">00:00</div><div class="stat-foot">Current session</div></div>
-        <div class="card"><span class="stat-icon">↔</span><div class="stat-label">CONNECTION</div><div class="stat-value" id="stat-connection" style="font-size:19px">Demo</div><div class="stat-foot" id="stat-baud">9600 baud</div></div>
-      </div>
-
-      <div class="grid two">
-        <div class="card">
-          <div class="card-head"><div><div class="card-title">Output control</div><div class="card-sub">Quick access to connected outputs</div></div><span class="badge">4 CHANNELS</span></div>
-          <div class="control-row"><div><div class="control-name">Built-in LED</div><div class="control-desc">Arduino digital output</div></div><label class="switch"><input id="led-toggle" type="checkbox" checked onchange="setOutput('LED',this.checked)"><span></span></label></div>
-          <div class="control-row"><div><div class="control-name">Relay 01</div><div class="control-desc">Digital pin 7</div></div><label class="switch"><input id="relay-toggle" type="checkbox" onchange="setOutput('RELAY1',this.checked)"><span></span></label></div>
-          <div class="control-row"><div><div class="control-name">RGB lighting</div><div class="control-desc">PWM pins 9, 10, 11</div></div><label class="switch"><input id="rgb-toggle" type="checkbox" checked onchange="setOutput('RGB_ENABLE',this.checked)"><span></span></label></div>
-          <div class="control-row"><div><div class="control-name">PWM output</div><div class="control-desc">Pin 5</div></div><label class="switch"><input id="pwm-toggle" type="checkbox" onchange="setOutput('PWM_ENABLE',this.checked)"><span></span></label></div>
-        </div>
-        <div class="card">
-          <div class="card-head"><div><div class="card-title">Device information</div><div class="card-sub">Connection and firmware</div></div><span class="badge" id="device-badge">SIMULATED</span></div>
-          <div class="control-row"><span class="control-desc">Device</span><b id="device-name">Arduino compatible</b></div>
-          <div class="control-row"><span class="control-desc">Transport</span><b id="device-transport">Demo simulator</b></div>
-          <div class="control-row"><span class="control-desc">Baud rate</span><b id="device-baud">9600</b></div>
-          <div class="control-row"><span class="control-desc">Protocol</span><b>NEBULA / 1.0</b></div>
-          <p class="footer-note">Demo readings are simulated. Hardware values are only real when a compatible device is connected.</p>
-        </div>
-      </div>
-
-      <div class="grid two" style="margin-top:14px">
-        <div class="card">
-          <div class="card-head"><div><div class="card-title">RGB Studio</div><div class="card-sub">Set your LED strip color</div></div><span class="badge">PWM</span></div>
-          <input class="color-input" id="rgb-color" type="color" value="#83a77d" oninput="updateColorPreview()">
-          <div class="range-line"><span>Brightness</span><b id="brightness-value">75%</b></div>
-          <input id="brightness" type="range" min="0" max="100" value="75" oninput="document.getElementById('brightness-value').textContent=this.value+'%'">
-          <div class="top-actions" style="margin-top:13px">
-            <button class="btn primary" onclick="applyRGB()">Apply color</button>
-            <button class="btn" onclick="setMode('BREATHING')">Breathing</button>
-            <button class="btn" onclick="setMode('OFF')">Off</button>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-head"><div><div class="card-title">Servo position</div><div class="card-sub">Standard 0–180 degree control</div></div><b id="servo-value">90°</b></div>
-          <input type="range" id="servo" min="0" max="180" value="90" oninput="document.getElementById('servo-value').textContent=this.value+'°'">
-          <div class="range-line"><span>0°</span><span>90°</span><span>180°</span></div>
-          <button class="btn primary full" onclick="sendCommand('SERVO:'+document.getElementById('servo').value)">Set servo position</button>
-        </div>
-      </div>
-
-      <div class="card" style="margin-top:14px">
-        <div class="card-head"><div><div class="card-title">Recent activity</div><div class="card-sub">Latest system events</div></div><button class="btn small" onclick="navigate('logs')">View all</button></div>
-        <div id="recent-logs"></div>
-      </div>
-    </section>
-
-    <section class="page hidden" id="page-hardware">
-      <div class="page-head"><div><div class="eyebrow">DEVICE MANAGEMENT</div><h1>Hardware</h1><p>Control outputs and configure hardware modules.</p></div><span class="badge">ARDUINO I/O</span></div>
-      <div class="grid two">
-        <div class="card">
-          <div class="card-head"><div class="card-title">Digital outputs</div><span class="badge">ON / OFF</span></div>
-          <div class="control-row"><div><div class="control-name">LED_BUILTIN</div><div class="control-desc">Board indicator</div></div><label class="switch"><input type="checkbox" checked onchange="setOutput('LED',this.checked)"><span></span></label></div>
-          <div class="control-row"><div><div class="control-name">Relay 1 · D7</div><div class="control-desc">External relay module</div></div><label class="switch"><input type="checkbox" onchange="setOutput('RELAY1',this.checked)"><span></span></label></div>
-        </div>
-        <div class="card">
-          <div class="card-head"><div class="card-title">PWM output</div><span class="badge">0–255</span></div>
-          <div class="range-line"><span>Power level</span><b id="pwm-value">128</b></div>
-          <input type="range" min="0" max="255" value="128" id="pwm-range" oninput="document.getElementById('pwm-value').textContent=this.value">
-          <button class="btn primary full" style="margin-top:13px" onclick="sendCommand('PWM:'+document.getElementById('pwm-range').value)">Apply PWM</button>
-        </div>
-        <div class="card">
-          <div class="card-head"><div class="card-title">RGB controller</div><span class="badge">3 CHANNELS</span></div>
-          <input class="color-input" id="hardware-color" type="color" value="#83a77d">
-          <button class="btn primary full" style="margin-top:10px" onclick="sendRGBFrom('hardware-color')">Apply RGB color</button>
-          <div class="top-actions" style="margin-top:10px">
-            <button class="btn" onclick="setMode('BREATHING')">Breathing</button>
-            <button class="btn" onclick="setMode('PARTY')">Party</button>
-            <button class="btn" onclick="setMode('OFF')">Stop effect</button>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-head"><div class="card-title">Servo motor</div><span class="badge">SERVO.H</span></div>
-          <div class="range-line"><span>Angle</span><b id="hardware-servo-value">90°</b></div>
-          <input type="range" min="0" max="180" value="90" oninput="document.getElementById('hardware-servo-value').textContent=this.value+'°'" id="hardware-servo">
-          <button class="btn primary full" style="margin-top:10px" onclick="sendCommand('SERVO:'+document.getElementById('hardware-servo').value)">Move servo</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="page hidden" id="page-pins">
-      <div class="page-head"><div><div class="eyebrow">I/O CONFIGURATION</div><h1>Pin Manager</h1><p>Inspect and control the supported digital pins.</p></div><span class="badge warn">CHECK WIRING FIRST</span></div>
-      <div class="card">
-        <div class="card-head"><div class="card-title">Digital pin overview</div><span class="badge">D2–D13</span></div>
-        <div class="pin-grid" id="pin-grid"></div>
-        <p class="footer-note">This interface only sends PIN commands. The Arduino firmware must whitelist the pin and configure it as an output. Avoid pins used by USB serial, Servo, RGB and other connected hardware.</p>
-      </div>
-      <div class="card" style="margin-top:14px">
-        <div class="card-title">Manual pin control</div>
-        <div class="grid three">
-          <div class="field"><label>PIN NUMBER</label><select id="manual-pin"></select></div>
-          <div class="field"><label>OUTPUT STATE</label><select id="manual-state"><option value="1">HIGH</option><option value="0">LOW</option></select></div>
-          <div class="field"><label>&nbsp;</label><button class="btn primary" onclick="manualPin()">Apply pin state</button></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="page hidden" id="page-automation">
-      <div class="page-head"><div><div class="eyebrow">WORKFLOW BUILDER</div><h1>Automation</h1><p>Run predefined command sequences.</p></div><span class="badge">MACROS</span></div>
-      <div class="grid two">
-        <div class="card">
-          <div class="card-head"><div class="card-title">Quick sequences</div></div>
-          <div class="control-row"><div><b class="control-name">Startup sequence</b><div class="control-desc">LED on, RGB preset, servo center</div></div><button class="btn primary small" onclick="runMacro('startup')">Run</button></div>
-          <div class="control-row"><div><b class="control-name">Shutdown sequence</b><div class="control-desc">Turn off supported outputs</div></div><button class="btn small" onclick="runMacro('shutdown')">Run</button></div>
-          <div class="control-row"><div><b class="control-name">Status check</b><div class="control-desc">Ping the connected board</div></div><button class="btn small" onclick="runMacro('status')">Run</button></div>
-          <div class="control-row"><div><b class="control-name">RGB test</b><div class="control-desc">Three color test sequence</div></div><button class="btn small" onclick="runMacro('rgbtest')">Run</button></div>
-        </div>
-        <div class="card">
-          <div class="card-title">Custom macro</div>
-          <p class="card-sub">One command per line. Delay between commands is configurable.</p>
-          <div class="field"><label>COMMAND SEQUENCE</label><textarea id="macro-text" rows="7" placeholder="LED:1&#10;RGB:80,150,80&#10;SERVO:90"></textarea></div>
-          <div class="field"><label>DELAY BETWEEN COMMANDS (MS)</label><input type="number" id="macro-delay" min="0" max="10000" value="500"></div>
-          <button class="btn primary full" onclick="runCustomMacro()">Run custom sequence</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="page hidden" id="page-profiles">
-      <div class="page-head"><div><div class="eyebrow">CONFIGURATION</div><h1>Profiles</h1><p>Save and restore your preferred settings.</p></div></div>
-      <div class="grid two">
-        <div class="card">
-          <div class="card-title">Save current profile</div>
-          <div class="field"><label>PROFILE NAME</label><input id="profile-name" placeholder="My setup"></div>
-          <button class="btn primary full" onclick="saveProfile()">Save profile</button>
-        </div>
-        <div class="card">
-          <div class="card-title">Saved profiles</div>
-          <div id="profile-list"><div class="empty">No saved profiles yet.</div></div>
-        </div>
-      </div>
-      <p class="footer-note">Profiles are stored in this browser using local storage. They do not automatically configure unknown hardware.</p>
-    </section>
-
-    <section class="page hidden" id="page-sensors">
-      <div class="page-head"><div><div class="eyebrow">LIVE MONITORING</div><h1>Sensors</h1><p>Analog readings from the connected Arduino.</p></div><span class="badge" id="sensor-mode">SIMULATED DATA</span></div>
-      <div class="grid three">
-        <div class="card"><div class="stat-label">ANALOG A0</div><div class="stat-value" id="sensor-a0">428</div><div class="progress"><span id="bar-a0" style="width:42%"></span></div><div class="card-sub">Raw ADC · 0–1023</div></div>
-        <div class="card"><div class="stat-label">ANALOG A1</div><div class="stat-value" id="sensor-a1">612</div><div class="progress"><span id="bar-a1" style="width:60%"></span></div><div class="card-sub">Raw ADC · 0–1023</div></div>
-        <div class="card"><div class="stat-label">ANALOG A2</div><div class="stat-value" id="sensor-a2">205</div><div class="progress"><span id="bar-a2" style="width:20%"></span></div><div class="card-sub">Raw ADC · 0–1023</div></div>
-      </div>
-      <div class="card" style="margin-top:14px">
-        <div class="card-head"><div class="card-title">Reading history</div><span class="badge">RECENT SAMPLES</span></div>
-        <div id="sensor-history" class="mono" style="font-size:11px;color:var(--muted);line-height:2">Waiting for readings...</div>
-        <p class="footer-note">Without sensors connected, analog inputs may float and show unstable values. The application displays raw values and does not guess temperature or other physical units.</p>
-      </div>
-    </section>
-
-    <section class="page hidden" id="page-terminal">
-      <div class="page-head"><div><div class="eyebrow">SERIAL COMMUNICATION</div><h1>Terminal</h1><p>Send commands and inspect device responses.</p></div><button class="btn" onclick="clearTerminal()">Clear terminal</button></div>
-      <div class="card">
-        <div class="card-head"><div class="card-title">Serial monitor</div><span class="badge" id="terminal-status">READY</span></div>
-        <div class="terminal" id="terminal"></div>
-        <div class="terminal-input"><input class="input mono" id="terminal-command" placeholder="Enter command, e.g. PING" onkeydown="if(event.key==='Enter')sendTerminalCommand()"><button class="btn primary" onclick="sendTerminalCommand()">Send ↗</button></div>
-        <div class="top-actions" style="margin-top:10px"><button class="btn small" onclick="sendCommand('PING')">PING</button><button class="btn small" onclick="sendCommand('LED:1')">LED ON</button><button class="btn small" onclick="sendCommand('LED:0')">LED OFF</button></div>
-      </div>
-    </section>
-
-    <section class="page hidden" id="page-logs">
-      <div class="page-head"><div><div class="eyebrow">SYSTEM HISTORY</div><h1>Activity logs</h1><p>Recent commands, connection events and errors.</p></div><button class="btn" onclick="clearLogs()">Clear logs</button></div>
-      <div class="card"><div id="all-logs"></div></div>
-    </section>
-
-    <section class="page hidden" id="page-settings">
-      <div class="page-head"><div><div class="eyebrow">PREFERENCES</div><h1>Settings</h1><p>Connection and application configuration.</p></div></div>
-      <div class="grid two">
-        <div class="card">
-          <div class="card-title">Serial connection</div>
-          <div class="field"><label>BAUD RATE</label><select id="baud-rate"><option>9600</option><option>19200</option><option>38400</option><option>57600</option><option>115200</option></select></div>
-          <div class="field"><label>CONNECTION MODE</label><select id="connection-mode"><option value="demo">Demo mode</option><option value="serial">Hardware mode</option></select></div>
-          <button class="btn primary full" onclick="applySettings()">Apply settings</button>
-          <p class="footer-note">Web Serial requires a supported Chromium browser and a secure context (HTTPS or localhost). GitHub Pages uses HTTPS.</p>
-        </div>
-        <div class="card">
-          <div class="card-title">Application information</div>
-          <div class="control-row"><span class="control-desc">Application</span><b>NEBULA CONTROL</b></div>
-          <div class="control-row"><span class="control-desc">Edition</span><b>Green Edition</b></div>
-          <div class="control-row"><span class="control-desc">Version</span><b>1.0.0</b></div>
-          <div class="control-row"><span class="control-desc">Serial protocol</span><b>NEBULA/1.0</b></div>
-          <button class="btn full" onclick="openBoss()">Open BOSS MENU</button>
-        </div>
-      </div>
-    </section>
-  </main>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<!-- BOSS MENU -->
-<div class="modal-backdrop" id="boss-modal" onclick="if(event.target===this)closeBoss()">
-  <div class="modal">
-    <div class="boss-top">
-      <div><div class="boss-tag">NEBULA / ADMINISTRATION</div><h2>♛ BOSS MENU</h2><p>Advanced device controls and diagnostics.</p></div>
-      <button class="btn" onclick="closeBoss()">✕</button>
-    </div>
-    <div id="boss-login" class="boss-login">
-      <p>Administrator authentication required.</p>
-      <input id="boss-password" type="password" placeholder="Enter password" onkeydown="if(event.key==='Enter')unlockBoss()">
-      <button class="btn primary full" onclick="unlockBoss()">Unlock admin tools</button>
-      <div id="boss-error" class="boss-error"></div>
-      <p class="footer-note">This is a client-side access gate, not real security. The password is visible in the public source code.</p>
-    </div>
-    <div id="boss-content" class="hidden">
-      <span class="badge">ADMIN ACCESS ENABLED</span>
-      <div class="boss-grid">
-        <button class="boss-tile" onclick="sendCommand('PING')"><b>⌁</b><span>Device ping</span></button>
-        <button class="boss-tile" onclick="sendCommand('LED:1')"><b>●</b><span>LED enable</span></button>
-        <button class="boss-tile" onclick="sendCommand('LED:0')"><b>○</b><span>LED disable</span></button>
-        <button class="boss-tile" onclick="sendCommand('MODE:BREATHING')"><b>◉</b><span>Breathing mode</span></button>
-        <button class="boss-tile" onclick="sendCommand('MODE:PARTY')"><b>◈</b><span>Party mode</span></button>
-        <button class="boss-tile" onclick="sendCommand('MODE:OFF')"><b>■</b><span>Stop effects</span></button>
-      </div>
-      <div class="boss-section">
-        <h3>COMMAND CENTER</h3>
-        <div class="terminal-input"><input class="input mono" id="boss-command" placeholder="Custom command"><button class="btn primary" onclick="bossSendCustom()">Send</button></div>
-      </div>
-      <div class="boss-section">
-        <h3>PIN OVERRIDE</h3>
-        <div class="grid two">
-          <div class="field"><label>PIN</label><select id="boss-pin"><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>12</option><option>13</option></select></div>
-          <div class="field"><label>STATE</label><select id="boss-pin-state"><option value="1">HIGH</option><option value="0">LOW</option></select></div>
-        </div>
-        <button class="btn primary full" onclick="bossSetPin()">Apply pin override</button>
-      </div>
-      <div class="boss-section">
-        <h3>DIAGNOSTICS</h3>
-        <div class="control-row"><span class="control-desc">Connection</span><b id="boss-connection">Demo</b></div>
-        <div class="control-row"><span class="control-desc">Baud rate</span><b id="boss-baud">9600</b></div>
-        <div class="control-row"><span class="control-desc">Events logged</span><b id="boss-events">0</b></div>
-        <button class="btn full" onclick="navigate('logs');closeBoss()">Open system logs</button>
-      </div>
-      <div class="boss-section">
-        <h3>EMERGENCY STOP</h3>
-        <p>Send OFF commands to the outputs supported by this firmware.</p>
-        <button class="btn danger full" onclick="emergencyStop()">STOP OUTPUTS</button>
-      </div>
-      <button class="btn full" style="margin-top:12px" onclick="lockBoss()">Lock administrator menu</button>
-    </div>
+<aside class="sidebar">
+  <div class="brand"><div class="logo">N</div><div><b>NEBULA CONTROL</b><small>TECHNICKÉ STUDIO · 2.0</small></div></div>
+  <div>
+    <div class="navlabel">Řídicí centrum</div>
+    <nav class="nav" id="nav">
+      <button class="active" data-page="prehled"><span>⌂</span>Přehled</button>
+      <button data-page="hardware"><span>⌘</span>Hardware a piny</button>
+      <button data-page="senzory"><span>⌁</span>Senzory a grafy</button>
+      <button data-page="automatizace"><span>⟳</span>Automatizace</button>
+      <button data-page="signal"><span>∿</span>PWM a signál</button>
+      <button data-page="profily"><span>▤</span>Profily</button>
+      <button data-page="terminal"><span>›_</span>Terminál</button>
+      <button data-page="udalosti"><span>◷</span>Události</button>
+      <button data-page="nastaveni"><span>⚙</span>Nastavení</button>
+      <button data-page="boss"><span>◆</span>BOSS režim</button>
+    </nav>
   </div>
+  <div class="sidebottom"><div><i class="dot" id="sideDot"></i><span id="sideStatus">Demo režim</span></div><br>NEBULA CONTROL 2.0 · Česká edice</div>
+</aside>
+
+<main>
+<header>
+  <div><div class="eyebrow">OVLÁDACÍ PANEL / <span id="crumb">PŘEHLED</span></div><h1 id="pageTitle">Přehled zařízení</h1></div>
+  <div class="topright"><span class="pill" id="clock">--:--:--</span><span class="pill" id="connPill">● Demo režim</span><button class="btn" id="connectBtn">Připojit Arduino</button></div>
+</header>
+
+<section class="page active" id="page-prehled">
+ <div class="grid stats">
+  <div class="card"><div class="statlabel">Teplota – odhad</div><div class="statvalue" id="sTemp">24,6 °C</div><div class="statfoot">Simulovaná hodnota A0</div></div>
+  <div class="card"><div class="statlabel">Vlhkost – odhad</div><div class="statvalue" id="sHum">48 %</div><div class="statfoot">Simulovaná hodnota A1</div></div>
+  <div class="card"><div class="statlabel">Analogový vstup A2</div><div class="statvalue" id="sVolt">225</div><div class="statfoot">Surová hodnota 0–1023</div></div>
+  <div class="card"><div class="statlabel">Aktivní výstupy</div><div class="statvalue" id="sOutputs">1 / 11</div><div class="statfoot">Digitální výstupy</div></div>
+ </div>
+ <div class="grid cols">
+  <div class="card"><div class="cardhead"><div><h3>Průběh senzorů</h3><div class="sub">Posledních 60 měření</div></div><span class="badge">ŽIVĚ</span></div><canvas id="overviewChart"></canvas></div>
+  <div class="card"><div class="cardhead"><h3>Stav zařízení</h3><span class="badge warn" id="deviceBadge">DEMO</span></div>
+   <div class="list">
+    <div class="listrow"><span>Komunikace</span><b id="deviceConnection">Simulovaná</b></div>
+    <div class="listrow"><span>Doba běhu panelu</span><b id="uptime">00:00</b></div>
+    <div class="listrow"><span>Poslední zpráva</span><b id="lastMessage">—</b></div>
+    <div class="listrow"><span>Vzorkování</span><b>1 Hz</b></div>
+   </div><div class="footerhint">V demo režimu nejsou hodnoty skutečným měřením.</div>
+  </div>
+ </div>
+ <div class="grid cols3" style="margin-top:15px">
+  <div class="card"><div class="metric"><div class="metricicon">◉</div><div><strong id="ledState">Zapnuto</strong><small>LED · D13</small></div></div><button class="btn small" style="margin-top:12px" onclick="togglePin(13)">Přepnout LED</button></div>
+  <div class="card"><div class="metric"><div class="metricicon">▣</div><div><strong id="relayState">Vypnuto</strong><small>Relé · D7</small></div></div><button class="btn secondary small" style="margin-top:12px" onclick="togglePin(7)">Přepnout relé</button></div>
+  <div class="card"><div class="metric"><div class="metricicon">◌</div><div><strong id="fanState">0 %</strong><small>Ventilátor · PWM D5</small></div></div><input type="range" min="0" max="255" value="0" oninput="setPwm(this.value)"></div>
+ </div>
+</section>
+
+<section class="page" id="page-hardware">
+ <div class="notice">Před zapojením ověř napětí a proud. Arduino pin nesmí přímo napájet motor ani výkonnou zátěž. Použij vhodný budič.</div>
+ <div class="card"><div class="cardhead"><div><h3>Digitální výstupy</h3><div class="sub">Přehled a ovládání pinů</div></div><button class="btn danger small" onclick="allOff()">Vypnout vše</button></div><div class="pin-grid" id="pinGrid"></div></div>
+ <div class="grid cols" style="margin-top:15px">
+  <div class="card"><div class="cardhead"><h3>RGB světlo</h3><span class="badge">PWM</span></div>
+   <div class="two">
+    <div class="field"><label>Červená</label><input id="red" type="range" min="0" max="255" value="70" oninput="updateRgb()"></div>
+    <div class="field"><label>Zelená</label><input id="green" type="range" min="0" max="255" value="150" oninput="updateRgb()"></div>
+    <div class="field"><label>Modrá</label><input id="blue" type="range" min="0" max="255" value="90" oninput="updateRgb()"></div>
+    <div style="display:grid;place-items:center"><div id="rgbPreview" style="width:58px;height:58px;border-radius:50%;background:rgb(70,150,90)"></div></div>
+   </div><button class="btn small" onclick="sendRgb()">Odeslat barvu</button>
+  </div>
+  <div class="card"><div class="cardhead"><h3>Servo motor</h3><span class="badge">0–180°</span></div><div class="statvalue" id="servoValue">90°</div><input type="range" min="0" max="180" value="90" oninput="servoValue.textContent=this.value+'°';send('SERVO:'+this.value)"><div class="footerhint">Servo napájej vhodným zdrojem, ne přímo z pinu.</div></div>
+ </div>
+</section>
+
+<section class="page" id="page-senzory">
+ <div class="grid stats">
+  <div class="card"><div class="statlabel">Vstup A0</div><div class="statvalue" id="a0v">512</div><div class="statfoot">0–1023</div></div>
+  <div class="card"><div class="statlabel">Vstup A1</div><div class="statvalue" id="a1v">438</div><div class="statfoot">0–1023</div></div>
+  <div class="card"><div class="statlabel">Vstup A2</div><div class="statvalue" id="a2v">225</div><div class="statfoot">0–1023</div></div>
+  <div class="card"><div class="statlabel">Počet vzorků</div><div class="statvalue" id="sampleCount">0</div><div class="statfoot">Aktuální relace</div></div>
+ </div>
+ <div class="card"><div class="cardhead"><div><h3>Historie měření</h3><div class="sub">Analogové vstupy A0, A1 a A2</div></div><button class="btn secondary small" onclick="exportCsv()">Export CSV</button></div><canvas id="sensorChart"></canvas></div>
+ <div class="card" style="margin-top:15px"><div class="cardhead"><h3>Poslední hodnoty</h3></div><table class="table"><thead><tr><th>Vstup</th><th>Hodnota</th><th>Rozsah</th><th>Stav</th></tr></thead><tbody id="sensorRows"></tbody></table></div>
+</section>
+
+<section class="page" id="page-automatizace">
+ <div class="grid cols">
+  <div class="card"><div class="cardhead"><h3>Nové pravidlo IF / THEN</h3><span class="badge">AUTOMATIZACE</span></div>
+   <div class="field"><label>KDYŽ – vstup</label><select id="ruleInput"><option value="A0">Analogový vstup A0</option><option value="A1">Analogový vstup A1</option><option value="A2">Analogový vstup A2</option></select></div>
+   <div class="two"><div class="field"><label>Podmínka</label><select id="ruleOp"><option value="gt">Je větší než</option><option value="lt">Je menší než</option><option value="eq">Je rovno</option></select></div><div class="field"><label>Hodnota 0–1023</label><input id="ruleValue" type="number" min="0" max="1023" value="650"></div></div>
+   <div class="field"><label>TAK – akce</label><select id="ruleAction"><option value="7:1">Zapnout relé D7</option><option value="7:0">Vypnout relé D7</option><option value="13:1">Zapnout LED D13</option><option value="13:0">Vypnout LED D13</option><option value="5:255">Ventilátor 100 %</option><option value="5:0">Ventilátor vypnout</option></select></div>
+   <button class="btn" onclick="addRule()">Přidat automatizaci</button>
+   <p class="footerhint">Pravidla běží pouze v otevřeném prohlížeči. Pro nepřetržitý provoz je přesuň do firmwaru.</p>
+  </div>
+  <div class="card"><div class="cardhead"><h3>Aktivní pravidla</h3><span class="badge" id="ruleCount">0 pravidel</span></div><div id="rules"><div class="empty">Zatím žádná pravidla.</div></div></div>
+ </div>
+</section>
+
+<section class="page" id="page-signal">
+ <div class="grid cols">
+  <div class="card"><div class="cardhead"><h3>Monitor PWM</h3><span class="badge">D5 · 0–255</span></div><div class="statvalue" id="pwmBig">0</div><input type="range" min="0" max="255" value="0" oninput="setPwm(this.value)"><div class="listrow"><span>Střída</span><b id="duty">0 %</b></div><div class="listrow"><span>Frekvence</span><b>Podle desky / časovače</b></div><div class="footerhint">Následující zobrazení je modelovaný signál, nikoliv laboratorní měření.</div></div>
+  <div class="card"><div class="cardhead"><h3>Náhled průběhu</h3><span class="badge">SIMULACE</span></div><canvas id="scopeChart"></canvas></div>
+ </div>
+</section>
+
+<section class="page" id="page-profily">
+ <div class="grid cols">
+  <div class="card"><h3>Uložit aktuální profil</h3><div class="field"><label>Název profilu</label><input id="profileName" placeholder="Např. Osvětlení dílny"></div><button class="btn" onclick="saveProfile()">Uložit profil</button><div class="footerhint">Profily jsou uložené v tomto prohlížeči.</div></div>
+  <div class="card"><div class="cardhead"><h3>Uložené profily</h3><button class="btn secondary small" onclick="exportSettings()">Záloha JSON</button></div><div id="profiles"><div class="empty">Zatím žádný profil.</div></div><label class="btn secondary small" style="display:inline-block;margin-top:10px">Import JSON<input type="file" accept="application/json" hidden onchange="importSettings(event)"></label></div>
+ </div>
+</section>
+
+<section class="page" id="page-terminal">
+ <div class="card"><div class="cardhead"><div><h3>Sériový terminál</h3><div class="sub">Příkazy pro Arduino</div></div><span class="badge" id="terminalBadge">DEMO</span></div>
+  <div class="terminal" id="terminal"><div class="muted">NEBULA CONTROL 2.0 · Terminál připraven.</div><div class="muted">Napiš HELP pro seznam příkazů.</div></div>
+  <form class="terminalform" onsubmit="terminalSend(event)"><input id="terminalInput" placeholder="Např. PING"><button class="btn">Odeslat</button></form>
+  <div class="footerhint">PING, LED:1, RELAY1:0, PWM:120, SERVO:90, RGB:30,120,60, HELP.</div>
+ </div>
+</section>
+
+<section class="page" id="page-udalosti">
+ <div class="card"><div class="cardhead"><div><h3>Protokol událostí</h3><div class="sub">Příkazy, změny a upozornění</div></div><button class="btn secondary small" onclick="clearEvents()">Vymazat</button></div><div id="events"><div class="empty">Zatím bez událostí.</div></div></div>
+</section>
+
+<section class="page" id="page-nastaveni">
+ <div class="grid cols">
+  <div class="card"><h3>Vzhled</h3><div class="field"><label>Barevný režim</label><select id="themeSelect" onchange="setTheme(this.value)"><option value="light">Světlý – útulný</option><option value="dark">Tmavý – dílna</option></select></div><div class="field"><label>Zvuk upozornění</label><select id="soundSelect"><option value="off">Vypnutý</option><option value="on">Zapnutý</option></select></div></div>
+  <div class="card"><h3>Komunikace</h3><p class="sub">Web Serial vyžaduje podporovaný Chrome nebo Edge a HTTPS či localhost.</p><button class="btn" onclick="connectSerial()">Vybrat sériový port</button> <button class="btn secondary" onclick="disconnectSerial()">Odpojit</button><div class="footerhint">Rychlost: 115200 baud.</div></div>
+ </div>
+ <div class="card" style="margin-top:15px"><h3>Bezpečnost</h3><p class="sub">Lokální BOSS zámek není skutečné zabezpečení. Pro ochranu zařízení použij serverovou autentizaci nebo ověřování přímo ve firmwaru.</p><button class="btn secondary" onclick="exportSettings()">Exportovat nastavení</button></div>
+</section>
+
+<section class="page" id="page-boss">
+ <div id="bossLocked" class="card" style="max-width:470px;margin:auto">
+  <div class="cardhead"><h3>◆ BOSS režim</h3><span class="badge warn">SERVIS</span></div><p class="sub">Zadej lokální heslo pro servisní funkce.</p>
+  <div class="field"><label>Heslo</label><input type="password" id="bossPass" placeholder="Heslo BOSS režimu"></div>
+  <button class="btn" onclick="unlockBoss()">Odemknout</button>
+  <p class="footerhint">Výchozí heslo: nebula-root. Změň ho po prvním spuštění. Nejde o bezpečnostní autentizaci.</p>
+ </div>
+ <div id="bossPanel" class="hidden">
+  <div class="notice">Servisní režim je odemčen. Příkazy mohou ovlivnit fyzické zařízení.</div>
+  <div class="grid cols">
+   <div class="card"><h3>Servisní příkazy</h3><div class="controlrow"><button class="btn small" onclick="send('PING')">Test spojení</button><button class="btn secondary small" onclick="send('STATUS')">Stav zařízení</button><button class="btn danger small" onclick="emergencyStop()">Nouzově vypnout</button></div>
+    <div class="field"><label>Nové lokální heslo</label><input type="password" id="newBossPass" placeholder="Nové heslo"></div><button class="btn secondary small" onclick="changeBossPass()">Změnit heslo</button>
+   </div>
+   <div class="card"><h3>Diagnostika</h3><div class="list"><div class="listrow"><span>Sériové rozhraní</span><b id="diagSerial">Demo</b></div><div class="listrow"><span>Vzorky</span><b id="diagSamples">0</b></div><div class="listrow"><span>Pravidla</span><b id="diagRules">0</b></div></div><button class="btn secondary small" style="margin-top:10px" onclick="exportCsv()">Export měření CSV</button></div>
+  </div>
+ </div>
+</section>
+<div class="footerhint" style="text-align:center;margin-top:25px">NEBULA CONTROL 2.0 · Česká edice · Lokální ovládací panel</div>
+</main>
 </div>
+<div id="toast" class="toast hidden"></div>
 
 <script>
-"use strict";
+const $=id=>document.getElementById(id);
+const startTime=Date.now();
+let pins={2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0,10:0,11:0,13:1};
+let pwm=0,rgb=[70,150,90],servo=90;
+let sensor={A0:512,A1:438,A2:225},samples=[],events=[],rules=[];
+let profiles=JSON.parse(localStorage.getItem('nebulaProfiles')||'[]');
+let port=null,writer=null,reader=null,serialConnected=false,reading=false;
+const pageTitles={prehled:'Přehled zařízení',hardware:'Hardware a piny',senzory:'Senzory a grafy',automatizace:'Automatizace',signal:'PWM a signál',profily:'Profily zařízení',terminal:'Sériový terminál',udalosti:'Protokol událostí',nastaveni:'Nastavení',boss:'BOSS režim'};
 
-/* =========================================================
-   NEBULA CONTROL — APPLICATION CORE
-   Demo simulator + Web Serial transport
-   ========================================================= */
+function toast(t){$('toast').textContent=t;$('toast').classList.remove('hidden');setTimeout(()=>$('toast').classList.add('hidden'),2500)}
+function log(t,type='info'){events.unshift({time:new Date().toLocaleTimeString('cs-CZ'),text:t,type});events=events.slice(0,100);renderEvents();$('lastMessage').textContent=new Date().toLocaleTimeString('cs-CZ')}
+function term(t,muted=false){let d=document.createElement('div');d.textContent=(muted?'· ':'› ')+t;if(muted)d.className='muted';$('terminal').appendChild(d);$('terminal').scrollTop=$('terminal').scrollHeight}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 
-const CONFIG = {
-  // Change this password. Client-side passwords are not secure.
-  bossPassword: "nebula-root",
-  demo: true,
-  baudRate: 9600,
-  maxLogs: 250,
-  allowedPins: [2,3,4,5,6,7,8,12,13]
-};
+$('nav').addEventListener('click',e=>{
+ const b=e.target.closest('button[data-page]');if(!b)return;
+ document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x===b));
+ document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id==='page-'+b.dataset.page));
+ $('crumb').textContent=b.textContent.trim().toLocaleUpperCase('cs-CZ');
+ $('pageTitle').textContent=pageTitles[b.dataset.page];
+ if(b.dataset.page==='signal')drawScope();
+});
 
-const state = {
-  port: null,
-  reader: null,
-  writer: null,
-  connected: false,
-  demo: true,
-  reading: false,
-  outputs: { LED:true, RELAY1:false, RGB_ENABLE:true, PWM_ENABLE:false },
-  sensors: { A0:428, A1:612, A2:205 },
-  logs: [],
-  history: [],
-  started: Date.now(),
-  bossUnlocked: false,
-  demoTimer: null
-};
-
-const $ = id => document.getElementById(id);
-
-function timestamp() {
-  return new Date().toLocaleTimeString("cs-CZ",{hour12:false});
+function drawPins(){
+ $('pinGrid').innerHTML=Object.keys(pins).map(p=>`
+ <div class="pin"><div class="pin-top"><strong>D${p}</strong>
+ <button class="switch ${pins[p]?'on':''}" onclick="togglePin(${p})" aria-label="Přepnout pin ${p}"></button></div>
+ <small>${[3,5,6,9,10,11].includes(+p)?'Digitální / PWM':'Digitální výstup'}</small>
+ <div class="sub">${pins[p]?'ZAPNUTO':'VYPNUTO'}</div></div>`).join('');
+ updateOutputCount();
 }
-
-function toast(message) {
-  const el=$("toast");
-  el.textContent=message;
-  el.classList.add("show");
-  clearTimeout(toast.timer);
-  toast.timer=setTimeout(()=>el.classList.remove("show"),2600);
+function updateOutputCount(){
+ $('sOutputs').textContent=Object.values(pins).filter(Boolean).length+' / '+Object.keys(pins).length;
+ $('ledState').textContent=pins[13]?'Zapnuto':'Vypnuto';
+ $('relayState').textContent=pins[7]?'Zapnuto':'Vypnuto';
 }
-
-function log(message,type="info") {
-  const entry={time:timestamp(),message,type};
-  state.logs.unshift(entry);
-  state.logs=state.logs.slice(0,CONFIG.maxLogs);
-  renderLogs();
-  terminalLine(message,type==="error"?"err":"in");
+function send(cmd){
+ term(cmd);log('Odeslán příkaz: '+cmd);
+ if(writer)writer.write(new TextEncoder().encode(cmd+'\n')).catch(e=>log('Chyba zápisu: '+e.message,'error'));
+ else term('Demo režim – příkaz nebyl odeslán do Arduina.',true);
 }
-
-function terminalLine(message,type="in") {
-  const terminal=$("terminal");
-  if(!terminal)return;
-  const line=document.createElement("div");
-  line.className="terminal-line";
-  const time=document.createElement("span");
-  time.className="time";
-  time.textContent="["+timestamp()+"] ";
-  const content=document.createElement("span");
-  content.className=type;
-  content.textContent=message;
-  line.append(time,content);
-  terminal.appendChild(line);
-  while(terminal.children.length>300)terminal.removeChild(terminal.firstChild);
-  terminal.scrollTop=terminal.scrollHeight;
+function togglePin(p){
+ pins[p]=pins[p]?0:1;drawPins();
+ send((p===13?'LED':p===7?'RELAY1':'PIN:'+p)+':'+pins[p]);
 }
-
-function renderLogs() {
-  const html=state.logs.slice(0,7).map(item=>
-    `<div class="control-row"><span class="control-desc mono">${item.time}</span><span style="flex:1;font-size:11px">${escapeHTML(item.message)}</span><span class="badge ${item.type==="error"?"red":""}">${item.type.toUpperCase()}</span></div>`
-  ).join("")||'<div class="empty">No events yet.</div>';
-  $("recent-logs").innerHTML=html;
-  $("all-logs").innerHTML=state.logs.map(item=>
-    `<div class="control-row"><span class="control-desc mono">${item.time}</span><span style="flex:1;font-size:11px">${escapeHTML(item.message)}</span><span class="badge ${item.type==="error"?"red":""}">${item.type.toUpperCase()}</span></div>`
-  ).join("")||'<div class="empty">No events yet.</div>';
-  $("boss-events").textContent=state.logs.length;
+function allOff(){
+ Object.keys(pins).forEach(p=>pins[p]=0);pwm=0;drawPins();
+ $('pwmBig').textContent='0';$('duty').textContent='0 %';$('fanState').textContent='0 %';
+ send('ALL:0');log('Požadavek na vypnutí všech výstupů','warn');
 }
-
-function escapeHTML(value) {
-  return String(value).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function setPwm(v){
+ pwm=+v;$('fanState').textContent=Math.round(pwm/255*100)+' %';
+ $('pwmBig').textContent=pwm;$('duty').textContent=(pwm/255*100).toFixed(1)+' %';
+ send('PWM:'+pwm);drawScope();
 }
-
-function navigate(page) {
-  document.querySelectorAll(".page").forEach(el=>el.classList.add("hidden"));
-  const target=$("page-"+page);
-  if(target)target.classList.remove("hidden");
-  document.querySelectorAll(".nav button").forEach(btn=>btn.classList.toggle("active",btn.dataset.page===page));
-  const active=document.querySelector(`.nav button[data-page="${page}"]`);
-  $("crumb").textContent=active?active.textContent.trim():page;
-  $("sidebar").classList.remove("mobile-open");
-  if(page==="logs")renderLogs();
-  if(page==="profiles")renderProfiles();
+function updateRgb(){
+ rgb=[$('red').value,$('green').value,$('blue').value].map(Number);
+ $('rgbPreview').style.background=`rgb(${rgb.join(',')})`;
+ $('rgbPreview').style.boxShadow=`0 0 25px rgba(${rgb.join(',')},.35)`;
 }
-document.querySelectorAll(".nav button").forEach(btn=>btn.addEventListener("click",()=>navigate(btn.dataset.page)));
-function toggleSidebar(){$("sidebar").classList.toggle("mobile-open");}
+function sendRgb(){send('RGB:'+rgb.join(','))}
 
-/* ---------------- SERIAL CONNECTION ---------------- */
-
-async function connectDevice() {
-  if(state.connected){await disconnectDevice();return;}
-  if(!("serial" in navigator)){
-    toast("Web Serial není podporováno. Použij Chrome nebo Edge.");
-    log("Web Serial API is unavailable in this browser.","error");
-    return;
+function drawChart(canvas,sets){
+ if(!canvas)return;
+ const ctx=canvas.getContext('2d'),dpr=window.devicePixelRatio||1;
+ const w=canvas.clientWidth,h=canvas.clientHeight;
+ canvas.width=w*dpr;canvas.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+ ctx.clearRect(0,0,w,h);ctx.strokeStyle='#e4e9e1';ctx.lineWidth=1;
+ for(let i=0;i<5;i++){let y=12+i*(h-25)/4;ctx.beginPath();ctx.moveTo(30,y);ctx.lineTo(w-8,y);ctx.stroke()}
+ if(!sets.length)return;
+ const colors=['#557d62','#b8874b','#6b8791'];
+ sets.forEach((arr,j)=>{
+  ctx.strokeStyle=colors[j%3];ctx.lineWidth=2;ctx.beginPath();
+  arr.forEach((v,i)=>{let x=30+i*(w-42)/Math.max(arr.length-1,1),y=12+(1023-v)/1023*(h-25);if(!i)ctx.moveTo(x,y);else ctx.lineTo(x,y)});
+  ctx.stroke();
+ });
+}
+function drawScope(){
+ const c=$('scopeChart');if(!c)return;
+ const ctx=c.getContext('2d'),dpr=window.devicePixelRatio||1,w=c.clientWidth,h=c.clientHeight;
+ c.width=w*dpr;c.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
+ ctx.strokeStyle='#e4e9e1';for(let i=0;i<5;i++){ctx.beginPath();ctx.moveTo(15,10+i*(h-20)/4);ctx.lineTo(w-8,10+i*(h-20)/4);ctx.stroke()}
+ ctx.strokeStyle='#557d62';ctx.lineWidth=2;ctx.beginPath();
+ let period=Math.max(28,w/5),d=pwm/255,high=h-22,low=22;
+ for(let x=0;x<w-20;x++){let y=(x%period)/period<d?high:low;if(x===0)ctx.moveTo(x+10,y);else ctx.lineTo(x+10,y)}
+ ctx.stroke();
+}
+function renderSensors(){
+ ['A0','A1','A2'].forEach(k=>$(k.toLowerCase()+'v').textContent=sensor[k]);
+ $('sampleCount').textContent=samples.length;$('diagSamples').textContent=samples.length;
+ $('sensorRows').innerHTML=['A0','A1','A2'].map(k=>`<tr><td>${k}</td><td>${sensor[k]}</td><td>0–1023</td><td><span class="badge">${sensor[k]>900?'Vysoká':sensor[k]<100?'Nízká':'Normální'}</span></td></tr>`).join('');
+ drawChart($('sensorChart'),samples.slice(-100).map(s=>[s.A0,s.A1,s.A2]));
+}
+function addSample(){
+ if(!serialConnected){
+  sensor.A0=Math.round(510+Math.sin(Date.now()/6000)*70+(Math.random()-.5)*15);
+  sensor.A1=Math.round(440+Math.sin(Date.now()/9000)*38+(Math.random()-.5)*12);
+  sensor.A2=Math.round(225+(Math.random()-.5)*20);
+  $('sTemp').textContent=(22+sensor.A0/180).toFixed(1).replace('.',',')+' °C';
+  $('sHum').textContent=Math.round(sensor.A1/10)+' %';
+  $('sVolt').textContent=sensor.A2;
+ }
+ samples.push({...sensor,time:Date.now()});if(samples.length>300)samples.shift();
+ renderSensors();drawChart($('overviewChart'),samples.slice(-60).map(s=>[s.A0,s.A1,s.A2]));
+ evaluateRules();
+ $('uptime').textContent=new Date(Date.now()-startTime).toISOString().slice(11,19);
+}
+function evaluateRules(){
+ rules.forEach(r=>{
+  let v=sensor[r.input],ok=r.op==='gt'?v>r.value:r.op==='lt'?v<r.value:v===r.value;
+  if(ok&&!r.last){
+   let [p,state]=r.action.split(':');
+   if(+p===5){pwm=+state;$('fanState').textContent=Math.round(pwm/255*100)+' %';$('pwmBig').textContent=pwm;send('PWM:'+pwm)}
+   else{pins[p]=+state;drawPins();send((p==='13'?'LED':p==='7'?'RELAY1':'PIN:'+p)+':'+state)}
+   log('Spuštěna automatizace: '+r.input+' = '+v,'warn');
+   if($('soundSelect').value==='on')playTone();
   }
+  r.last=ok;
+ });
+}
+function playTone(){
+ try{let a=new AudioContext(),o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.value=660;g.gain.value=.04;o.start();o.stop(a.currentTime+.12)}catch(e){}
+}
+function addRule(){
+ let value=Number($('ruleValue').value);
+ if(!Number.isFinite(value)||value<0||value>1023){toast('Zadej hodnotu od 0 do 1023.');return}
+ rules.push({id:Date.now(),input:$('ruleInput').value,op:$('ruleOp').value,value,action:$('ruleAction').value,last:false});
+ renderRules();log('Přidáno nové automatizační pravidlo');
+}
+function renderRules(){
+ $('ruleCount').textContent=rules.length+' pravidel';$('diagRules').textContent=rules.length;
+ $('rules').innerHTML=rules.length?rules.map(r=>`
+ <div class="rule"><div style="display:flex;justify-content:space-between;gap:8px">
+ <strong>KDYŽ ${r.input} ${r.op==='gt'?'>':r.op==='lt'?'<':'='} ${r.value}</strong>
+ <button class="btn danger small" onclick="removeRule(${r.id})">Smazat</button></div>
+ <p>TAK akce ${r.action}</p></div>`).join(''):'<div class="empty">Zatím žádná pravidla.</div>';
+}
+function removeRule(id){rules=rules.filter(r=>r.id!==id);renderRules()}
+function renderEvents(){
+ $('events').innerHTML=events.length?events.map(e=>`<div class="listrow"><span><span class="badge ${e.type==='error'?'warn':''}">${e.time}</span> &nbsp;${escapeHtml(e.text)}</span></div>`).join(''):'<div class="empty">Zatím bez událostí.</div>';
+}
+function clearEvents(){events=[];renderEvents()}
+function terminalSend(e){e.preventDefault();let v=$('terminalInput').value.trim();if(v){send(v);$('terminalInput').value=''}}
+
+async function connectSerial(){
+ if(!('serial'in navigator)){toast('Web Serial není podporováno. Použij Chrome nebo Edge.');return}
+ try{
+  port=await navigator.serial.requestPort();await port.open({baudRate:115200});
+  writer=port.writable.getWriter();serialConnected=true;reading=true;updateConnection();
+  log('Arduino připojeno');term('Sériové zařízení připojeno.');readSerial();
+ }catch(e){toast('Připojení se nepodařilo: '+e.message);log('Chyba připojení: '+e.message,'error')}
+}
+async function readSerial(){
+ const decoder=new TextDecoder();let buffer='';
+ while(port&&port.readable&&reading){
   try{
-    const port=await navigator.serial.requestPort();
-    const baud=Number($("baud-rate").value||CONFIG.baudRate);
-    await port.open({baudRate:baud});
-    state.port=port;
-    state.writer=port.writable.getWriter();
-    state.connected=true;
-    state.demo=false;
-    CONFIG.demo=false;
-    CONFIG.baudRate=baud;
-    updateConnectionUI();
-    log("Hardware connected at "+baud+" baud.","success");
-    toast("Arduino connected");
-    readSerialLoop();
-  }catch(error){
-    log("Connection error: "+error.message,"error");
-    toast("Connection failed");
-  }
+   reader=port.readable.getReader();
+   while(true){
+    const {value,done}=await reader.read();if(done)break;
+    buffer+=decoder.decode(value,{stream:true});
+    const lines=buffer.split(/\r?\n/);buffer=lines.pop();
+    lines.forEach(parseLine);
+   }
+  }catch(e){if(reading)log('Chyba čtení: '+e.message,'error')}
+  finally{if(reader){reader.releaseLock();reader=null}}
+ }
 }
+function parseLine(line){
+ line=line.trim();if(!line)return;term(line,true);
+ $('lastMessage').textContent=new Date().toLocaleTimeString('cs-CZ');
+ if(line==='PONG'){log('Arduino odpovědělo PONG');return}
+ const m=line.match(/^(A[012]):(\d+)$/);
+ if(m){sensor[m[1]]=Math.max(0,Math.min(1023,+m[2]));return}
+ if(line.startsWith('ERR:'))log('Arduino: '+line,'error');
+ else if(line.startsWith('OK:'))log('Arduino: '+line);
+}
+async function disconnectSerial(){
+ reading=false;serialConnected=false;
+ try{
+  if(reader)await reader.cancel();
+  if(writer){writer.releaseLock();writer=null}
+  if(port){await port.close();port=null}
+ }catch(e){}
+ updateConnection();log('Arduino odpojeno');
+}
+function updateConnection(){
+ let t=serialConnected?'Arduino připojeno':'Demo režim';
+ $('sideStatus').textContent=t;$('connPill').textContent='● '+t;
+ $('sideDot').classList.toggle('online',serialConnected);
+ $('deviceConnection').textContent=serialConnected?'Sériová linka':'Simulovaná';
+ $('deviceBadge').textContent=serialConnected?'ONLINE':'DEMO';
+ $('deviceBadge').className='badge '+(serialConnected?'':'warn');
+ $('terminalBadge').textContent=serialConnected?'ONLINE':'DEMO';
+ $('diagSerial').textContent=serialConnected?'Připojeno':'Demo';
+ $('connectBtn').textContent=serialConnected?'Připojeno':'Připojit Arduino';
+}
+$('connectBtn').onclick=connectSerial;
 
-async function disconnectDevice() {
-  state.reading=false;
+function unlockBoss(){
+ const saved=localStorage.getItem('nebulaBossPass')||'nebula-root';
+ if($('bossPass').value===saved){
+  $('bossLocked').classList.add('hidden');$('bossPanel').classList.remove('hidden');
+  toast('BOSS režim odemčen');log('BOSS režim odemčen','warn');
+ }else toast('Nesprávné heslo');
+}
+function changeBossPass(){
+ let v=$('newBossPass').value;
+ if(v.length<8){toast('Heslo musí mít alespoň 8 znaků.');return}
+ localStorage.setItem('nebulaBossPass',v);$('newBossPass').value='';
+ toast('Lokální heslo změněno');log('Změněno lokální heslo BOSS režimu','warn');
+}
+function emergencyStop(){
+ if(confirm('Opravdu vypnout všechny výstupy?')){allOff();send('STOP');log('Vyžádáno nouzové vypnutí','error')}
+}
+function saveProfile(){
+ let name=$('profileName').value.trim();if(!name){toast('Zadej název profilu.');return}
+ profiles.push({name,pins:{...pins},pwm,rgb:[...rgb],servo,created:new Date().toLocaleString('cs-CZ')});
+ localStorage.setItem('nebulaProfiles',JSON.stringify(profiles));renderProfiles();toast('Profil uložen');
+}
+function renderProfiles(){
+ $('profiles').innerHTML=profiles.length?profiles.map((p,i)=>`
+ <div class="listrow"><div><b>${escapeHtml(p.name)}</b><div class="sub">${p.created||''}</div></div>
+ <div><button class="btn small" onclick="loadProfile(${i})">Načíst</button>
+ <button class="btn danger small" onclick="deleteProfile(${i})">×</button></div></div>`).join(''):'<div class="empty">Zatím žádný profil.</div>';
+}
+function loadProfile(i){
+ let p=profiles[i];pins={...p.pins};pwm=p.pwm||0;rgb=p.rgb||[0,0,0];
+ drawPins();$('red').value=rgb[0];$('green').value=rgb[1];$('blue').value=rgb[2];updateRgb();
+ send('PWM:'+pwm);Object.keys(pins).forEach(k=>send('PIN:'+k+':'+pins[k]));
+ toast('Profil načten');
+}
+function deleteProfile(i){profiles.splice(i,1);localStorage.setItem('nebulaProfiles',JSON.stringify(profiles));renderProfiles()}
+function downloadFile(name,data,type){
+ const a=document.createElement('a'),url=URL.createObjectURL(new Blob([data],{type}));
+ a.href=url;a.download=name;a.click();URL.revokeObjectURL(url);
+}
+function exportSettings(){
+ downloadFile('nebula-zaloha.json',JSON.stringify({version:'2.0',pins,pwm,rgb,servo,profiles,rules},null,2),'application/json');
+}
+function importSettings(e){
+ let f=e.target.files[0];if(!f)return;
+ let r=new FileReader();r.onload=()=>{
   try{
-    if(state.reader){await state.reader.cancel();state.reader.releaseLock();state.reader=null;}
-  }catch(e){}
-  try{
-    if(state.writer){state.writer.releaseLock();state.writer=null;}
-  }catch(e){}
-  try{
-    if(state.port){await state.port.close();}
-  }catch(e){}
-  state.port=null;
-  state.connected=false;
-  state.demo=true;
-  CONFIG.demo=true;
-  updateConnectionUI();
-  log("Device disconnected. Demo mode active.","info");
-  toast("Disconnected");
+   let d=JSON.parse(r.result);
+   if(d.profiles){profiles=d.profiles;localStorage.setItem('nebulaProfiles',JSON.stringify(profiles));renderProfiles()}
+   if(d.pins){pins=d.pins;drawPins()}
+   if(d.rules){rules=d.rules;renderRules()}
+   toast('Záloha importována');
+  }catch(err){toast('Soubor JSON není platný.')}
+ };r.readAsText(f);
 }
-
-async function readSerialLoop() {
-  if(!state.port||!state.port.readable)return;
-  state.reading=true;
-  const decoder=new TextDecoder();
-  let buffer="";
-  try{
-    const reader=state.port.readable.getReader();
-    state.reader=reader;
-    while(state.connected){
-      const {value,done}=await reader.read();
-      if(done)break;
-      buffer+=decoder.decode(value,{stream:true});
-      let newline;
-      while((newline=buffer.indexOf("\n"))>=0){
-        const line=buffer.slice(0,newline).trim();
-        buffer=buffer.slice(newline+1);
-        if(line)handleDeviceLine(line);
-      }
-    }
-  }catch(error){
-    if(state.connected)log("Serial read error: "+error.message,"error");
-  }finally{
-    state.reading=false;
-    try{if(state.reader){state.reader.releaseLock();state.reader=null;}}catch(e){}
-  }
+function exportCsv(){
+ let rows=['cas,A0,A1,A2',...samples.map(s=>[new Date(s.time).toISOString(),s.A0,s.A1,s.A2].join(','))];
+ downloadFile('nebula-mereni.csv','\uFEFF'+rows.join('\n'),'text/csv;charset=utf-8');
 }
-
-function handleDeviceLine(line) {
-  terminalLine(line,"in");
-  log("Device: "+line,"info");
-  const match=line.match(/^(A[0-2]):(\d+)$/i);
-  if(match){
-    const key=match[1].toUpperCase();
-    state.sensors[key]=Math.max(0,Math.min(1023,Number(match[2])));
-    updateSensors();
-    return;
-  }
-  if(line==="PONG")toast("Device responded: PONG");
+function setTheme(t){
+ if(t==='dark'){
+  const s=document.documentElement.style;
+  s.setProperty('--bg','#18231f');s.setProperty('--panel','#24322b');
+  s.setProperty('--panel2','#34443a');s.setProperty('--text','#e8eee7');
+  s.setProperty('--muted','#a2b1a6');s.setProperty('--line','#3b4b40');
+  document.querySelectorAll('canvas').forEach(c=>c.style.background='#202d26');
+ }else location.reload();
 }
-
-async function writeSerial(command) {
-  if(!state.connected||!state.writer)throw new Error("No hardware connection");
-  const bytes=new TextEncoder().encode(command+"\n");
-  await state.writer.write(bytes);
-}
-
-/* ---------------- COMMAND SYSTEM ---------------- */
-
-async function sendCommand(command) {
-  const cmd=String(command).trim();
-  if(!cmd)return;
-  terminalLine("> "+cmd,"out");
-  log("TX: "+cmd,"command");
-  if(state.demo){
-    simulateCommand(cmd);
-    return;
-  }
-  try{
-    await writeSerial(cmd);
-  }catch(error){
-    log("Send failed: "+error.message,"error");
-    toast("Command failed");
-  }
-}
-
-function simulateCommand(cmd) {
-  if(cmd==="PING"){
-    setTimeout(()=>{terminalLine("PONG (DEMO)","in");log("Demo device replied PONG.","success");},180);
-  }
-  const led=cmd.match(/^LED:(0|1)$/);
-  if(led)state.outputs.LED=led[1]==="1";
-  const relay=cmd.match(/^RELAY1:(0|1)$/);
-  if(relay)state.outputs.RELAY1=relay[1]==="1";
-  const pwm=cmd.match(/^PWM:(\d{1,3})$/);
-  if(pwm)state.outputs.PWM_ENABLE=Number(pwm[1])>0;
-  updateOutputUI();
-  if(cmd.startsWith("RGB:"))toast("Demo RGB updated");
-  else if(cmd.startsWith("SERVO:"))toast("Demo servo moved");
-  else if(cmd.startsWith("PIN:"))toast("Demo pin command");
-  else if(cmd.startsWith("MODE:"))toast("Demo effect: "+cmd.slice(5));
-}
-
-function setOutput(name,on) {
-  if(name==="RGB_ENABLE"){
-    sendCommand(on?"RGB:130,170,125":"RGB:0,0,0");
-  }else if(name==="PWM_ENABLE"){
-    sendCommand(on?"PWM:128":"PWM:0");
-  }else{
-    sendCommand(name+":"+(on?"1":"0"));
-  }
-  state.outputs[name]=on;
-  updateOutputUI();
-}
-
-function updateOutputUI() {
-  ["led-toggle","relay-toggle","rgb-toggle","pwm-toggle"].forEach(id=>{
-    const el=$(id);
-    if(!el)return;
-    const key={"led-toggle":"LED","relay-toggle":"RELAY1","rgb-toggle":"RGB_ENABLE","pwm-toggle":"PWM_ENABLE"}[id];
-    el.checked=!!state.outputs[key];
-  });
-  const active=Object.values(state.outputs).filter(Boolean).length;
-  $("stat-outputs").textContent=active+" / 4";
-}
-
-function applyRGB() {
-  const hex=$("rgb-color").value;
-  const rgb=hex.match(/[0-9a-f]{2}/gi).map(v=>parseInt(v,16));
-  const brightness=Number($("brightness").value)/100;
-  sendCommand("RGB:"+rgb.map(v=>Math.round(v*brightness)).join(","));
-}
-function sendRGBFrom(id) {
-  const hex=$(id).value;
-  const rgb=hex.match(/[0-9a-f]{2}/gi).map(v=>parseInt(v,16));
-  sendCommand("RGB:"+rgb.join(","));
-}
-function updateColorPreview(){}
-function setMode(mode){sendCommand("MODE:"+mode);}
-
-/* ---------------- PIN MANAGER ---------------- */
-
-function setupPins() {
-  const grid=$("pin-grid"),select=$("manual-pin"),boss=$("boss-pin");
-  CONFIG.allowedPins.forEach(pin=>{
-    const option=document.createElement("option");
-    option.value=pin;option.textContent="D"+pin;select.appendChild(option);
-    const tile=document.createElement("div");
-    tile.className="pin";
-    tile.innerHTML="<b>D"+pin+"</b><small>OUTPUT</small>";
-    tile.id="pin-"+pin;
-    tile.addEventListener("click",()=>{
-      const next=tile.classList.contains("active")?0:1;
-      sendCommand("PIN:"+pin+":"+next);
-      tile.classList.toggle("active",!!next);
-    });
-    grid.appendChild(tile);
-  });
-}
-function manualPin() {
-  const pin=Number($("manual-pin").value);
-  const value=$("manual-state").value;
-  if(!CONFIG.allowedPins.includes(pin)){toast("Pin not allowed");return;}
-  sendCommand("PIN:"+pin+":"+value);
-  $("pin-"+pin).classList.toggle("active",value==="1");
-}
-function bossSetPin() {
-  if(!state.bossUnlocked)return;
-  const pin=Number($("boss-pin").value);
-  const value=$("boss-pin-state").value;
-  if(!CONFIG.allowedPins.includes(pin)){toast("Pin not allowed");return;}
-  sendCommand("PIN:"+pin+":"+value);
-}
-
-/* ---------------- MACROS ---------------- */
-
-async function runSequence(commands,delay=350) {
-  for(const command of commands){
-    await sendCommand(command);
-    if(delay)await new Promise(resolve=>setTimeout(resolve,delay));
-  }
-}
-function runMacro(name) {
-  const macros={
-    startup:["LED:1","RGB:100,160,100","SERVO:90"],
-    shutdown:["MODE:OFF","RGB:0,0,0","PWM:0","RELAY1:0","LED:0"],
-    status:["PING"],
-    rgbtest:["RGB:255,0,0","RGB:0,255,0","RGB:0,0,255","RGB:100,160,100"]
-  };
-  runSequence(macros[name]||[]);
-  log("Macro started: "+name,"success");
-}
-function runCustomMacro() {
-  const commands=$("macro-text").value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
-  const delay=Math.max(0,Math.min(10000,Number($("macro-delay").value)||0));
-  if(!commands.length){toast("Add at least one command");return;}
-  if(!confirm("Run "+commands.length+" commands?"))return;
-  runSequence(commands,delay);
-  log("Custom macro started ("+commands.length+" commands).","success");
-}
-
-/* ---------------- PROFILES ---------------- */
-
-function getProfiles() {
-  try{return JSON.parse(localStorage.getItem("nebula-profiles")||"[]");}
-  catch(e){return [];}
-}
-function saveProfile() {
-  const name=$("profile-name").value.trim();
-  if(!name){toast("Enter a profile name");return;}
-  const profiles=getProfiles();
-  profiles.push({name,outputs:{...state.outputs},rgb:$("rgb-color").value,servo:$("servo").value,created:new Date().toISOString()});
-  localStorage.setItem("nebula-profiles",JSON.stringify(profiles));
-  $("profile-name").value="";
-  renderProfiles();
-  toast("Profile saved");
-}
-function renderProfiles() {
-  const profiles=getProfiles();
-  $("profile-list").innerHTML=profiles.map((p,i)=>
-    `<div class="control-row"><div><b class="control-name">${escapeHTML(p.name)}</b><div class="control-desc">${new Date(p.created).toLocaleDateString("cs-CZ")}</div></div><div class="top-actions"><button class="btn small primary" onclick="loadProfile(${i})">Load</button><button class="btn small danger" onclick="deleteProfile(${i})">Delete</button></div></div>`
-  ).join("")||'<div class="empty">No saved profiles yet.</div>';
-}
-function loadProfile(index) {
-  const p=getProfiles()[index];if(!p)return;
-  $("rgb-color").value=p.rgb||"#83a77d";
-  $("servo").value=p.servo||90;
-  $("servo-value").textContent=$("servo").value+"°";
-  Object.entries(p.outputs||{}).forEach(([key,value])=>{state.outputs[key]=value;});
-  updateOutputUI();
-  sendCommand("SERVO:"+$("servo").value);
-  sendRGBFrom("rgb-color");
-  sendCommand("LED:"+(state.outputs.LED?1:0));
-  sendCommand("RELAY1:"+(state.outputs.RELAY1?1:0));
-  toast("Profile loaded");
-}
-function deleteProfile(index) {
-  const profiles=getProfiles();profiles.splice(index,1);
-  localStorage.setItem("nebula-profiles",JSON.stringify(profiles));renderProfiles();
-}
-
-/* ---------------- SENSOR DATA ---------------- */
-
-function updateSensors() {
-  ["A0","A1","A2"].forEach(key=>{
-    const value=state.sensors[key];
-    $( "sensor-"+key.toLowerCase()).textContent=value;
-    $("bar-"+key.toLowerCase()).style.width=(value/1023*100)+"%";
-  });
-  $("stat-a0").textContent=state.sensors.A0;
-  const sample=timestamp()+"  A0 "+state.sensors.A0+"  A1 "+state.sensors.A1+"  A2 "+state.sensors.A2;
-  state.history.unshift(sample);
-  state.history=state.history.slice(0,8);
-  $("sensor-history").textContent=state.history.join("\n");
-}
-
-function startDemoTelemetry() {
-  clearInterval(state.demoTimer);
-  state.demoTimer=setInterval(()=>{
-    if(!state.demo)return;
-    state.sensors.A0=Math.max(0,Math.min(1023,state.sensors.A0+Math.round(Math.random()*24-12)));
-    state.sensors.A1=Math.max(0,Math.min(1023,state.sensors.A1+Math.round(Math.random()*30-15)));
-    state.sensors.A2=Math.max(0,Math.min(1023,state.sensors.A2+Math.round(Math.random()*20-10)));
-    updateSensors();
-  },2500);
-}
-
-/* ---------------- CONNECTION UI ---------------- */
-
-function updateConnectionUI() {
-  const demo=state.demo;
-  $("mode-badge").textContent=demo?"DEMO MODE":"HARDWARE MODE";
-  $("connect-btn").textContent=state.connected?"Disconnect":"Connect";
-  $("side-device").textContent=demo?"Demo device":"Arduino connected";
-  $("side-status").textContent=demo?"Simulation active":"USB serial active";
-  $("side-dot").style.background=demo?"#d4ad78":"#8cb78b";
-  $("stat-connection").textContent=demo?"Demo":"Online";
-  $("device-name").textContent=demo?"Arduino simulator":"Arduino device";
-  $("device-transport").textContent=demo?"Demo simulator":"USB Serial";
-  $("device-baud").textContent=CONFIG.baudRate;
-  $("stat-baud").textContent=CONFIG.baudRate+" baud";
-  $("device-badge").textContent=demo?"SIMULATED":"CONNECTED";
-  $("sensor-mode").textContent=demo?"SIMULATED DATA":"HARDWARE DATA";
-  $("boss-connection").textContent=demo?"Demo":"Connected";
-  $("boss-baud").textContent=CONFIG.baudRate;
-  $("terminal-status").textContent=demo?"DEMO":"CONNECTED";
-}
-
-function applySettings() {
-  CONFIG.baudRate=Number($("baud-rate").value);
-  const mode=$("connection-mode").value;
-  if(mode==="demo"&&state.connected){disconnectDevice();}
-  updateConnectionUI();
-  toast("Settings applied");
-  log("Settings updated. Baud rate: "+CONFIG.baudRate,"success");
-}
-
-/* ---------------- BOSS MENU ---------------- */
-
-function openBoss() {
-  $("boss-modal").classList.add("open");
-  if(!state.bossUnlocked)setTimeout(()=>$("boss-password").focus(),100);
-}
-function closeBoss(){$("boss-modal").classList.remove("open");}
-function unlockBoss() {
-  if($("boss-password").value===CONFIG.bossPassword){
-    state.bossUnlocked=true;
-    $("boss-login").classList.add("hidden");
-    $("boss-content").classList.remove("hidden");
-    $("boss-error").textContent="";
-    log("BOSS MENU unlocked.","success");
-    toast("Administrator access granted");
-  }else{
-    $("boss-error").textContent="Incorrect password. Access denied.";
-    log("Failed BOSS MENU login attempt.","warning");
-  }
-}
-function lockBoss() {
-  state.bossUnlocked=false;
-  $("boss-login").classList.remove("hidden");
-  $("boss-content").classList.add("hidden");
-  $("boss-password").value="";
-  closeBoss();
-}
-function bossSendCustom() {
-  if(!state.bossUnlocked)return;
-  const input=$("boss-command");
-  const command=input.value.trim();
-  if(command){sendCommand(command);input.value="";}
-}
-function emergencyStop() {
-  if(!state.bossUnlocked)return;
-  if(!confirm("Send emergency OFF commands to supported outputs?"))return;
-  runSequence(["MODE:OFF","RGB:0,0,0","PWM:0","RELAY1:0","LED:0"],120);
-  state.outputs={LED:false,RELAY1:false,RGB_ENABLE:false,PWM_ENABLE:false};
-  updateOutputUI();
-  log("Emergency stop sequence requested.","warning");
-}
-
-/* ---------------- TERMINAL / LOGS ---------------- */
-
-function sendTerminalCommand() {
-  const input=$("terminal-command");
-  const command=input.value.trim();
-  if(!command)return;
-  input.value="";
-  sendCommand(command);
-}
-function clearTerminal(){$("terminal").innerHTML="";terminalLine("Terminal cleared.");}
-function clearLogs(){state.logs=[];renderLogs();toast("Logs cleared");}
-function refreshDashboard(){updateSensors();updateOutputUI();toast("Dashboard refreshed");}
-
-/* ---------------- INITIALIZATION ---------------- */
-
-function init() {
-  setupPins();
-  updateConnectionUI();
-  updateOutputUI();
-  updateSensors();
-  renderLogs();
-  renderProfiles();
-  terminalLine("NEBULA CONTROL initialized.");
-  terminalLine("Demo simulator ready.");
-  terminalLine("Select Connect to use Web Serial.");
-  log("Application initialized.","success");
-  startDemoTelemetry();
-
-  document.addEventListener("keydown",event=>{
-    if(event.ctrlKey&&event.shiftKey&&event.code==="KeyM"){
-      event.preventDefault();
-      openBoss();
-    }
-    if(event.key==="Escape")closeBoss();
-  });
-
-  if("serial" in navigator){
-    navigator.serial.addEventListener("disconnect",()=>{
-      if(state.connected)disconnectDevice();
-    });
-  }
-
-  setInterval(()=>{
-    const seconds=Math.floor((Date.now()-state.started)/1000);
-    const mins=String(Math.floor(seconds/60)).padStart(2,"0");
-    const secs=String(seconds%60).padStart(2,"0");
-    $("stat-uptime").textContent=mins+":"+secs;
-  },1000);
+function updateClock(){$('clock').textContent=new Date().toLocaleTimeString('cs-CZ')}
+function init(){
+ drawPins();renderProfiles();renderRules();renderEvents();updateConnection();
+ updateClock();setInterval(updateClock,1000);setInterval(addSample,1000);addSample();
+ window.addEventListener('resize',()=>{
+  drawChart($('overviewChart'),samples.slice(-60).map(s=>[s.A0,s.A1,s.A2]));
+  drawChart($('sensorChart'),samples.slice(-100).map(s=>[s.A0,s.A1,s.A2]));drawScope();
+ });
 }
 init();
 </script>
